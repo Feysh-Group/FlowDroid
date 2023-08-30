@@ -6,7 +6,7 @@
 	<version>2.12.0-SNAPSHOT</version>
 	<name>FlowDroid Parent Module</name>
 	<description>Parent module for the FlowDroid data flow tracker</description>
-	<url>https://github.com/secure-software-engineering/FlowDroid</url>	
+	<url>https://github.com/secure-software-engineering/FlowDroid</url>
 	<packaging>pom</packaging>
 
 	<properties>

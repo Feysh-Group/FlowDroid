@@ -1172,19 +1172,19 @@ public abstract class AbstractInfoflow implements IInfoflow {
 
 		if (results == null || results.isEmpty())
 			logger.warn("No results found.");
-		else if (logger.isInfoEnabled()) {
+		else if (logger.isDebugEnabled()) {
 			for (ResultSinkInfo sink : results.getResults().keySet()) {
-				logger.info("The sink {} in method {} was called with values from the following sources:", sink,
+				logger.debug("The sink {} in method {} was called with values from the following sources:", sink,
 						iCfg.getMethodOf(sink.getStmt()).getSignature());
 				for (ResultSourceInfo source : results.getResults().get(sink)) {
-					logger.info("- {} in method {}", source, iCfg.getMethodOf(source.getStmt()).getSignature());
+					logger.debug("- {} in method {}", source, iCfg.getMethodOf(source.getStmt()).getSignature());
 					if (source.getPath() != null) {
-						logger.info("\ton Path: ");
+						logger.debug("\ton Path: ");
 						for (Unit p : source.getPath()) {
 							if (p != null) {
-								logger.info("\t -> " + iCfg.getMethodOf(p));
+								logger.debug("\t -> " + iCfg.getMethodOf(p));
 								int ln = p.getJavaSourceStartLineNumber();
-								logger.info("\t\t -> " + p + (ln != -1 ? " in line " + ln : ""));
+								logger.debug("\t\t -> " + p + (ln != -1 ? " in line " + ln : ""));
 							}
 						}
 					}
@@ -1203,7 +1203,7 @@ public abstract class AbstractInfoflow implements IInfoflow {
 
 	/**
 	 * Creates the reverse problem for the IFDS taint propagation problem
-	 * 
+	 *
 	 * @param zeroValue The taint abstraction for the tautology
 	 * @return The IDFS problem
 	 */
@@ -1605,7 +1605,7 @@ public abstract class AbstractInfoflow implements IInfoflow {
 		propagationResults.addResultAvailableHandler(new OnTaintPropagationResultAdded() {
 
 			@Override
-			public boolean onResultAvailable(AbstractionAtSink abs) {
+			public boolean onResultAvailable(IInfoflowCFG icfg, AbstractionAtSink abs) {
 				builder.addResultAvailableHandler(new OnPathBuilderResultAvailable() {
 
 					@Override
@@ -1880,7 +1880,7 @@ public abstract class AbstractInfoflow implements IInfoflow {
 
 	/**
 	 * Initializes an appropriate instance of the rule manager factory
-	 * 
+	 *
 	 * @return The rule manager factory
 	 */
 	protected IPropagationRuleManagerFactory initializeReverseRuleManagerFactory() {

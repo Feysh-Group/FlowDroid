@@ -8,6 +8,7 @@ import soot.jimple.infoflow.InfoflowManager;
 import soot.jimple.infoflow.collect.MyConcurrentHashMap;
 import soot.jimple.infoflow.data.Abstraction;
 import soot.jimple.infoflow.data.AbstractionAtSink;
+import soot.jimple.infoflow.solver.cfg.IInfoflowCFG;
 import soot.jimple.infoflow.solver.memory.IMemoryManager;
 import soot.jimple.infoflow.util.SystemClassHandler;
 
@@ -27,11 +28,12 @@ public class TaintPropagationResults {
 
 		/**
 		 * Called when a new abstraction has reached a sink statement
-		 * 
-		 * @param abs The abstraction at the sink
+		 *
+		 * @param icfg The interprofessional control flow graph
+		 * @param abs  The abstraction at the sink
 		 * @return True if the data flow analysis shall continue, otherwise false
 		 */
-		public boolean onResultAvailable(AbstractionAtSink abs);
+		public boolean onResultAvailable(IInfoflowCFG icfg, AbstractionAtSink abs);
 
 	}
 
@@ -83,7 +85,7 @@ public class TaintPropagationResults {
 		// Notify the handlers
 		boolean continueAnalysis = true;
 		for (OnTaintPropagationResultAdded handler : resultAddedHandlers)
-			if (!handler.onResultAvailable(resultAbs))
+			if (!handler.onResultAvailable(manager.getICFG(), resultAbs))
 				continueAnalysis = false;
 		return continueAnalysis;
 	}
