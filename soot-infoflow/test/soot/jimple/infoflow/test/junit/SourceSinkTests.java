@@ -24,6 +24,7 @@ import soot.jimple.InvokeExpr;
 import soot.jimple.LeExpr;
 import soot.jimple.Stmt;
 import soot.jimple.infoflow.IInfoflow;
+import soot.jimple.infoflow.InfoflowConfiguration;
 import soot.jimple.infoflow.InfoflowManager;
 import soot.jimple.infoflow.data.AccessPath;
 import soot.jimple.infoflow.data.SootMethodAndClass;
@@ -369,6 +370,7 @@ public abstract class SourceSinkTests extends JUnitTests {
 		IInfoflow infoflow = initInfoflow();
 		List<String> epoints = new ArrayList<String>();
 		epoints.add("<soot.jimple.infoflow.test.SourceSinkTestCode: void ifAsSinkTest()>");
+		infoflow.getConfig().setImplicitFlowMode(InfoflowConfiguration.ImplicitFlowMode.AllImplicitFlows);
 		infoflow.computeInfoflow(appPath, libPath, new DefaultEntryPointCreator(epoints), new ifAsSinkSSM());
 		Assert.assertTrue(infoflow.isResultAvailable());
 		Assert.assertEquals(1, infoflow.getResults().size());

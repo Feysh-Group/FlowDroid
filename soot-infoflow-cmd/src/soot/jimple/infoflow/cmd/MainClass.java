@@ -641,12 +641,14 @@ public class MainClass {
 	private static DataFlowSolver parseDataFlowSolver(String solver) {
 		if (solver.equalsIgnoreCase("CONTEXTFLOWSENSITIVE"))
 			return DataFlowSolver.ContextFlowSensitive;
+		else if (solver.equalsIgnoreCase("CONTEXTFLOWSENSITIVENOSPARSE"))
+			return DataFlowSolver.ContextFlowSensitiveNoSparse;
 		else if (solver.equalsIgnoreCase("FLOWINSENSITIVE"))
 			return DataFlowSolver.FlowInsensitive;
 		else if (solver.equalsIgnoreCase("GC"))
 			return DataFlowSolver.GarbageCollecting;
 		else {
-			System.err.println(String.format("Invalid data flow solver: %s", solver));
+			System.err.printf("Invalid data flow solver: %s%n", solver);
 			throw new AbortAnalysisException();
 		}
 	}

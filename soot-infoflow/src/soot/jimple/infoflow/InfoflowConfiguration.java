@@ -121,9 +121,15 @@ public class InfoflowConfiguration {
 	 */
 	public static enum DataFlowSolver {
 		/**
-		 * Use a flow- and context-sensitive solver
+		 * Use a flow- and context-sensitive solver with sparse analyze opt
 		 */
 		ContextFlowSensitive,
+
+		/**
+		 * Use a flow- and context-sensitive solver without sparse analyze opt
+		 */
+		ContextFlowSensitiveNoSparse,
+
 
 		/**
 		 * Use a context-sensitive, but flow-insensitive solver

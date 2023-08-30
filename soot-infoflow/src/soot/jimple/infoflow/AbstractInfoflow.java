@@ -1223,7 +1223,10 @@ public abstract class AbstractInfoflow implements IInfoflow {
 			SolverConfiguration solverConfig) {
 		switch (solverConfig.getDataFlowSolver()) {
 		case ContextFlowSensitive:
-			logger.info("Using context- and flow-sensitive solver");
+			logger.info("Using context- and flow-sensitive solver with sparse optimization");
+			return new soot.jimple.infoflow.solver.fastSolver.SparseInfoFlowSolver(problem, executor);
+		case ContextFlowSensitiveNoSparse:
+			logger.info("Using context- and flow-sensitive solver without sparse optimization");
 			return new soot.jimple.infoflow.solver.fastSolver.InfoflowSolver(problem, executor);
 		case FlowInsensitive:
 			logger.info("Using context-sensitive, but flow-insensitive solver");
